@@ -15,32 +15,37 @@ class Livre
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    public $id;
-
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    public $nom_livre;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    public  $resume;
-
-    /**
-     * @ORM\Column(type="string", length=30)
-     */
-    public $categorie;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    public $ref_eni;
+    private $id;
 
     /**
      * @ORM\Column(type="text")
      */
-    public $isbn;
+    private $nom_livre;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $resume;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $refEni;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $isbn;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $site;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $auteur;
 
     public function getId(): ?int
     {
@@ -64,33 +69,21 @@ class Livre
         return $this->resume;
     }
 
-    public function setResume(?string $resume): self
+    public function setResume(string $resume): self
     {
         $this->resume = $resume;
 
         return $this;
     }
 
-    public function getCategorie(): ?string
-    {
-        return $this->categorie;
-    }
-
-    public function setCategorie(string $categorie): self
-    {
-        $this->categorie = $categorie;
-
-        return $this;
-    }
-
     public function getRefEni(): ?int
     {
-        return $this->ref_eni;
+        return $this->refEni;
     }
 
-    public function setRefEni(int $ref_eni): self
+    public function setRefEni(int $refEni): self
     {
-        $this->ref_eni = $ref_eni;
+        $this->refEni = $refEni;
 
         return $this;
     }
@@ -103,6 +96,30 @@ class Livre
     public function setIsbn(string $isbn): self
     {
         $this->isbn = $isbn;
+
+        return $this;
+    }
+
+    public function getSite(): ?bool
+    {
+        return $this->site;
+    }
+
+    public function setSite(bool $site): self
+    {
+        $this->site = $site;
+
+        return $this;
+    }
+
+    public function getAuteur(): ?string
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(string $auteur): self
+    {
+        $this->auteur = $auteur;
 
         return $this;
     }

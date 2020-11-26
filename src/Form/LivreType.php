@@ -14,9 +14,10 @@ class LivreType extends AbstractType
         $builder
             ->add('nom_livre')
             ->add('resume')
-            ->add('categorie')
-            ->add('ref_eni')
+            ->add('refEni')
             ->add('isbn')
+            ->add('site')
+            ->add('auteur')
         ;
     }
 
