@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ENI-Stock!{% endblock %}
+
+{% block main %}
+
+            <table id="tableHome">
+            <tr>
+                <td>
+                    {% if is_granted('ROLE_USER') %}
+                        <a href="{{ path('app_login') }}">Login</a>
+                    {% else %}
+                        <a href="{{ path('register') }}">S'incrire</a>
+                    {% endif %}
+                </td>
+            </tr>
+
+{% endblock %}

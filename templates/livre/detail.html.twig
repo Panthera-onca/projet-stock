@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    <h1>{{ livre.nom_livre }}</h1>
+    <div class="livre-meta">By {{ livre.nom_livre }}</div>
+    <div class="resume">{{ livre.resume|nl2br }}</div>
+    <div class="livre-categorie">Classified in: {{ livre.categorie }}</div>
+
+{% endblock %}
+
+{% block title %}{{ livre.nom_livre }} | {{ parent() }}{% endblock %}
