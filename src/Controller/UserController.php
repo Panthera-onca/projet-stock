@@ -46,7 +46,7 @@ class UserController extends AbstractController
             $em->flush();
 
             $this->addFlash("success", "Your account has been created!");
-            return $this->redirectToRoute("livre_list");
+            return $this->redirectToRoute("app_login");
         }
 
         return $this->render("user/register.html.twig", ["form" => $form->createView()]);
