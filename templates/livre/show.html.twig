@@ -2,7 +2,7 @@
 
 {% block title %}Livre{% endblock %}
 
-{% block main %}
+{% block body %}
     <h1>Livre</h1>
 
     <table class="table">
@@ -10,6 +10,14 @@
             <tr>
                 <th>Id</th>
                 <td>{{ livre.id }}</td>
+            </tr>
+            <tr>
+                <th>Ref_eni</th>
+                <td>{{ livre.refEni }}</td>
+            </tr>
+            <tr>
+                <th>Isbn</th>
+                <td>{{ livre.isbn }}</td>
             </tr>
             <tr>
                 <th>Nom_livre</th>
@@ -20,20 +28,16 @@
                 <td>{{ livre.resume }}</td>
             </tr>
             <tr>
-                <th>RefEni</th>
-                <td>{{ livre.refEni }}</td>
-            </tr>
-            <tr>
-                <th>Isbn</th>
-                <td>{{ livre.isbn }}</td>
-            </tr>
-            <tr>
-                <th>Site</th>
-                <td>{{ livre.site ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
                 <th>Auteur</th>
                 <td>{{ livre.auteur }}</td>
+            </tr>
+            <tr>
+                <th>Filiere_id</th>
+                <td>{{ livre.filiereId }}</td>
+            </tr>
+            <tr>
+                <th>Categorie_id</th>
+                <td>{{ livre.categorieId }}</td>
             </tr>
         </tbody>
     </table>

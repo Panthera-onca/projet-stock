@@ -2,19 +2,20 @@
 
 {% block title %}Livre index{% endblock %}
 
-{% block main %}
+{% block body %}
     <h1>Livre index</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Ref_eni</th>
+                <th>Isbn</th>
                 <th>Nom_livre</th>
                 <th>Resume</th>
-                <th>RefEni</th>
-                <th>Isbn</th>
-                <th>Site</th>
                 <th>Auteur</th>
+                <th>Filiere_id</th>
+                <th>Categorie_id</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,12 +23,13 @@
         {% for livre in livres %}
             <tr>
                 <td>{{ livre.id }}</td>
-                <td>{{ livre.nomLivre }}</td>
-                <td>{{ livre.resume }}</td>
                 <td>{{ livre.refEni }}</td>
                 <td>{{ livre.isbn }}</td>
-                <td>{{ livre.site ? 'Yes' : 'No' }}</td>
+                <td>{{ livre.nomLivre }}</td>
+                <td>{{ livre.resume }}</td>
                 <td>{{ livre.auteur }}</td>
+                <td>{{ livre.filiereId }}</td>
+                <td>{{ livre.categorieId }}</td>
                 <td>
                     <a href="{{ path('livre_show', {'id': livre.id}) }}">show</a>
                     <a href="{{ path('livre_edit', {'id': livre.id}) }}">edit</a>
@@ -35,7 +37,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="9">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

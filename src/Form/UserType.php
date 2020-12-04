@@ -2,30 +2,33 @@
 
 namespace App\Form;
 
-use App\Entity\Livre;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class LivreType extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ref_eni')
-            ->add('isbn')
-            ->add('nom_livre')
-            ->add('resume')
-            ->add('auteur')
+            ->add('site_id')
+            ->add('email')
+            ->add('roles')
+            ->add('password')
+            ->add('username')
+            ->add('name')
+            ->add('Prenom')
+            ->add('pwd_change')
+            ->add('is_verified')
             ->add('filiere_id')
-            ->add('categorie_id')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Livre::class,
+            'data_class' => User::class,
         ]);
     }
 }

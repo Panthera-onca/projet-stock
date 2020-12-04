@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User implements \Symfony\Component\Security\Core\User\UserInterface
+class User
 {
     /**
      * @ORM\Id
@@ -18,21 +18,14 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="integer")
      */
-    private $nom;
-
-    /**
-     * @ORM\Column(type="string", length=30)
-     */
-    private $prenom;
+    private $site_id;
 
     /**
      * @ORM\Column(type="text")
      */
     private $email;
-
-
 
     /**
      * @ORM\Column(type="json")
@@ -40,42 +33,53 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
     private $roles = [];
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="text")
+     */
+    private $password;
+
+    /**
+     * @ORM\Column(type="text")
      */
     private $username;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $password;
+    private $name;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $Prenom;
 
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $pwd_change;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $is_verified;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $filiere_id;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getSiteId(): ?int
     {
-        return $this->nom;
+        return $this->site_id;
     }
 
-    public function setNom(string $nom): self
+    public function setSiteId(int $site_id): self
     {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
+        $this->site_id = $site_id;
 
         return $this;
     }
@@ -92,14 +96,9 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
         return $this;
     }
 
-
-
     public function getRoles(): ?array
     {
-        $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return $this->roles;
     }
 
     public function setRoles(array $roles): self
@@ -109,18 +108,22 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
         return $this;
     }
 
-
-    public function getSalt()
+    public function getPassword(): ?string
     {
-        return null;
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
     }
 
     public function getUsername(): ?string
     {
         return $this->username;
     }
-
-    public function eraseCredentials(){}
 
     public function setUsername(string $username): self
     {
@@ -129,18 +132,62 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface
         return $this;
     }
 
-
-    /**
-     * @return string|null
-     */
-    public function getPassword()
+    public function getName(): ?string
     {
-        return $this->password;
+        return $this->name;
     }
 
-    public function setPassword(string $password): self
+    public function setName(string $name): self
     {
-        $this->password = $password;
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->Prenom;
+    }
+
+    public function setPrenom(string $Prenom): self
+    {
+        $this->Prenom = $Prenom;
+
+        return $this;
+    }
+
+    public function getPwdChange(): ?int
+    {
+        return $this->pwd_change;
+    }
+
+    public function setPwdChange(int $pwd_change): self
+    {
+        $this->pwd_change = $pwd_change;
+
+        return $this;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->is_verified;
+    }
+
+    public function setIsVerified(bool $is_verified): self
+    {
+        $this->is_verified = $is_verified;
+
+        return $this;
+    }
+
+    public function getFiliereId(): ?int
+    {
+        return $this->filiere_id;
+    }
+
+    public function setFiliereId(int $filiere_id): self
+    {
+        $this->filiere_id = $filiere_id;
 
         return $this;
     }

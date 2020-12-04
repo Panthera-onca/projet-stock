@@ -20,6 +20,16 @@ class Livre
     /**
      * @ORM\Column(type="text")
      */
+    private $ref_eni;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $isbn;
+
+    /**
+     * @ORM\Column(type="text")
+     */
     private $nom_livre;
 
     /**
@@ -28,28 +38,47 @@ class Livre
     private $resume;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $refEni;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $isbn;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $site;
-
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50)
      */
     private $auteur;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $filiere_id;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $categorie_id;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getRefEni(): ?string
+    {
+        return $this->ref_eni;
+    }
+
+    public function setRefEni(string $ref_eni): self
+    {
+        $this->ref_eni = $ref_eni;
+
+        return $this;
+    }
+
+    public function getIsbn(): ?string
+    {
+        return $this->isbn;
+    }
+
+    public function setIsbn(string $isbn): self
+    {
+        $this->isbn = $isbn;
+
+        return $this;
     }
 
     public function getNomLivre(): ?string
@@ -76,42 +105,6 @@ class Livre
         return $this;
     }
 
-    public function getRefEni(): ?int
-    {
-        return $this->refEni;
-    }
-
-    public function setRefEni(int $refEni): self
-    {
-        $this->refEni = $refEni;
-
-        return $this;
-    }
-
-    public function getIsbn(): ?string
-    {
-        return $this->isbn;
-    }
-
-    public function setIsbn(string $isbn): self
-    {
-        $this->isbn = $isbn;
-
-        return $this;
-    }
-
-    public function getSite(): ?bool
-    {
-        return $this->site;
-    }
-
-    public function setSite(bool $site): self
-    {
-        $this->site = $site;
-
-        return $this;
-    }
-
     public function getAuteur(): ?string
     {
         return $this->auteur;
@@ -120,6 +113,30 @@ class Livre
     public function setAuteur(string $auteur): self
     {
         $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    public function getFiliereId(): ?int
+    {
+        return $this->filiere_id;
+    }
+
+    public function setFiliereId(int $filiere_id): self
+    {
+        $this->filiere_id = $filiere_id;
+
+        return $this;
+    }
+
+    public function getCategorieId(): ?int
+    {
+        return $this->categorie_id;
+    }
+
+    public function setCategorieId(int $categorie_id): self
+    {
+        $this->categorie_id = $categorie_id;
 
         return $this;
     }
