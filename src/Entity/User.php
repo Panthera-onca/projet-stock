@@ -17,40 +17,16 @@ class User
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $site_id;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $email;
+
+
 
     /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $password;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $username;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $name;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $Prenom;
 
     /**
      * @ORM\Column(type="smallint")
@@ -63,38 +39,52 @@ class User
     private $is_verified;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Site::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $filiere_id;
+    private $site;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Filiere::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $filiere;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $username;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prenom;
+
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getSiteId(): ?int
-    {
-        return $this->site_id;
-    }
 
-    public function setSiteId(int $site_id): self
-    {
-        $this->site_id = $site_id;
 
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
+    
 
     public function getRoles(): ?array
     {
@@ -108,53 +98,7 @@ class User
         return $this;
     }
 
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->Prenom;
-    }
-
-    public function setPrenom(string $Prenom): self
-    {
-        $this->Prenom = $Prenom;
-
-        return $this;
-    }
+    
 
     public function getPwdChange(): ?int
     {
@@ -180,15 +124,91 @@ class User
         return $this;
     }
 
-    public function getFiliereId(): ?int
+    public function getSite(): ?Site
     {
-        return $this->filiere_id;
+        return $this->site;
     }
 
-    public function setFiliereId(int $filiere_id): self
+    public function setSite(?Site $site): self
     {
-        $this->filiere_id = $filiere_id;
+        $this->site = $site;
 
         return $this;
     }
+
+    public function getFiliere(): ?Filiere
+    {
+        return $this->filiere;
+    }
+
+    public function setFiliere(?Filiere $filiere): self
+    {
+        $this->filiere = $filiere;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+
+
+   
 }

@@ -17,20 +17,7 @@ class Livre
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $ref_eni;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $isbn;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $nom_livre;
 
     /**
      * @ORM\Column(type="text")
@@ -43,18 +30,99 @@ class Livre
     private $auteur;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Categorie::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $filiere_id;
+    private $categorie;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Filiere::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $categorie_id;
+    private $filiere;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom_livre;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $ref_eni;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $isbn;
+
+
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+
+
+    public function getResume(): ?string
+    {
+        return $this->resume;
+    }
+
+    public function setResume(string $resume): self
+    {
+        $this->resume = $resume;
+
+        return $this;
+    }
+
+    public function getAuteur(): ?string
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(string $auteur): self
+    {
+        $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getFiliere(): ?Filiere
+    {
+        return $this->filiere;
+    }
+
+    public function setFiliere(?Filiere $filiere): self
+    {
+        $this->filiere = $filiere;
+
+        return $this;
+    }
+
+    public function getNomLivre(): ?string
+    {
+        return $this->nom_livre;
+    }
+
+    public function setNomLivre(string $nom_livre): self
+    {
+        $this->nom_livre = $nom_livre;
+
+        return $this;
     }
 
     public function getRefEni(): ?string
@@ -81,63 +149,6 @@ class Livre
         return $this;
     }
 
-    public function getNomLivre(): ?string
-    {
-        return $this->nom_livre;
-    }
 
-    public function setNomLivre(string $nom_livre): self
-    {
-        $this->nom_livre = $nom_livre;
-
-        return $this;
-    }
-
-    public function getResume(): ?string
-    {
-        return $this->resume;
-    }
-
-    public function setResume(string $resume): self
-    {
-        $this->resume = $resume;
-
-        return $this;
-    }
-
-    public function getAuteur(): ?string
-    {
-        return $this->auteur;
-    }
-
-    public function setAuteur(string $auteur): self
-    {
-        $this->auteur = $auteur;
-
-        return $this;
-    }
-
-    public function getFiliereId(): ?int
-    {
-        return $this->filiere_id;
-    }
-
-    public function setFiliereId(int $filiere_id): self
-    {
-        $this->filiere_id = $filiere_id;
-
-        return $this;
-    }
-
-    public function getCategorieId(): ?int
-    {
-        return $this->categorie_id;
-    }
-
-    public function setCategorieId(int $categorie_id): self
-    {
-        $this->categorie_id = $categorie_id;
-
-        return $this;
-    }
+    
 }

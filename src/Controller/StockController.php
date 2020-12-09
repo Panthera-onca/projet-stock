@@ -19,9 +19,10 @@ class StockController extends AbstractController
      * @Route("/", name="stock_index", methods={"GET"})
      */
     public function index(StockRepository $stockRepository): Response
-    {
+    {   $stocks = $stockRepository->getList();
+
         return $this->render('stock/index.html.twig', [
-            'stocks' => $stockRepository->findAll(),
+            'stocks' => $stocks,
         ]);
     }
 

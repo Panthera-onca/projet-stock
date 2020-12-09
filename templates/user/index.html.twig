@@ -9,16 +9,14 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Site_id</th>
-                <th>Email</th>
                 <th>Roles</th>
-                <th>Password</th>
-                <th>Username</th>
-                <th>Name</th>
-                <th>Prenom</th>
                 <th>Pwd_change</th>
                 <th>Is_verified</th>
-                <th>Filiere_id</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Nom</th>
+                <th>Prenom</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -26,16 +24,14 @@
         {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
-                <td>{{ user.siteId }}</td>
-                <td>{{ user.email }}</td>
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.name }}</td>
-                <td>{{ user.Prenom }}</td>
                 <td>{{ user.pwdChange }}</td>
                 <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
-                <td>{{ user.filiereId }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.nom }}</td>
+                <td>{{ user.prenom }}</td>
                 <td>
                     <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
@@ -43,7 +39,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="12">no records found</td>
+                <td colspan="10">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

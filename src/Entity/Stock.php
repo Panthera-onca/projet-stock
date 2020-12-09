@@ -17,59 +17,38 @@ class Stock
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $site_id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $livre_id;
 
     /**
      * @ORM\Column(type="integer")
      */
     private $quantite_stock;
 
-    /**
-     * @ORM\Column(type="smallint")
-     */
-    private $ajout_retrait;
+
 
     /**
      * @ORM\Column(type="datetime_immutable")
      */
     private $date_modification;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Site::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $site;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Livre::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $livre;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getSiteId(): ?int
-    {
-        return $this->site_id;
-    }
 
-    public function setSiteId(int $site_id): self
-    {
-        $this->site_id = $site_id;
-
-        return $this;
-    }
-
-    public function getLivreId(): ?int
-    {
-        return $this->livre_id;
-    }
-
-    public function setLivreId(int $livre_id): self
-    {
-        $this->livre_id = $livre_id;
-
-        return $this;
-    }
 
     public function getQuantiteStock(): ?int
     {
@@ -83,17 +62,7 @@ class Stock
         return $this;
     }
 
-    public function getAjoutRetrait(): ?int
-    {
-        return $this->ajout_retrait;
-    }
 
-    public function setAjoutRetrait(int $ajout_retrait): self
-    {
-        $this->ajout_retrait = $ajout_retrait;
-
-        return $this;
-    }
 
     public function getDateModification(): ?\DateTimeImmutable
     {
@@ -103,6 +72,30 @@ class Stock
     public function setDateModification(\DateTimeImmutable $date_modification): self
     {
         $this->date_modification = $date_modification;
+
+        return $this;
+    }
+
+    public function getSite(): ?Site
+    {
+        return $this->site;
+    }
+
+    public function setSite(?Site $site): self
+    {
+        $this->site = $site;
+
+        return $this;
+    }
+
+    public function getLivre(): ?Livre
+    {
+        return $this->livre;
+    }
+
+    public function setLivre(?Livre $livre): self
+    {
+        $this->livre = $livre;
 
         return $this;
     }

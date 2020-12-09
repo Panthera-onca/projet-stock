@@ -47,4 +47,13 @@ class StockRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function getList()
+    {$qb = $this->createQueryBuilder('s')
+        ->join('s.livre', 'l')
+        ->join('s.site', 'si')
+        ->addSelect('l')
+        ->addSelect('si');
+    $query = $qb->getQuery();
+    return $query->getResult();
+    }
 }
