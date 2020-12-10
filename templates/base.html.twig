@@ -9,7 +9,6 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{{ path('home') }}">ENI_Stock.com</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -19,14 +18,15 @@
 
             {%  if not app.user %}
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                    <a class="nav-link" href="{{ path('user_new') }}">S'inscrire</a>
                 </li>
+            {% elseif user.isLoggedIn %}
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ path('register') }}">S'inscrire</a>
+                    <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
                 </li>
             {% else %}
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                    <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
                 </li>
             {% endif %}
         </ul>

@@ -47,4 +47,15 @@ class SiteRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function getSites()
+    {$qb = $this->createQueryBuilder('s')
+        ->join('s.ville', 'v')
+        ->join('s.adresse', 'ad')
+        ->join('s.campus', 'ca')
+        ->addSelect('v')
+        ->addSelect('ad')
+        ->addSelect('ca');
+    $query = $qb->getQuery();
+    return $query->getResult();
+    }
 }

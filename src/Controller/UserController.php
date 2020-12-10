@@ -19,9 +19,9 @@ class UserController extends AbstractController
      * @Route("/", name="user_index", methods={"GET"})
      */
     public function index(UserRepository $userRepository): Response
-    {
+    {   $users = $userRepository->getUsers();
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $users,
         ]);
     }
 
