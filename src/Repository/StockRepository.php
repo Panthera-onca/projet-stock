@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Stock;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -55,5 +56,14 @@ class StockRepository extends ServiceEntityRepository
         ->addSelect('si');
     $query = $qb->getQuery();
     return $query->getResult();
+    }
+    
+    /**
+     * @return Query
+     */
+    public function findAllVisibleQuery(Stock $search): Query
+    {
+        $query = $this->getList();
+        return $query->getResult();
     }
 }

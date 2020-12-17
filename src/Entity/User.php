@@ -4,11 +4,15 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -18,9 +22,6 @@ class User
     private $id;
 
 
-
-
-
     /**
      * @ORM\Column(type="json")
      */
@@ -28,25 +29,16 @@ class User
 
 
 
-    /**
-     * @ORM\Column(type="smallint")
-     */
-    private $pwd_change;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $is_verified;
 
     /**
      * @ORM\ManyToOne(targetEntity=Site::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $site;
 
     /**
      * @ORM\ManyToOne(targetEntity=Filiere::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $filiere;
 
@@ -66,6 +58,12 @@ class User
     private $password;
 
     /**
+     *  @Assert\EqualTo(propertyPath = "password",
+     *  message="Vous n'avez pas saisi le même mot de passe !" )
+     */
+    private $confirm_password;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
@@ -77,6 +75,8 @@ class User
 
 
 
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -84,11 +84,13 @@ class User
 
 
 
-    
 
-    public function getRoles(): ?array
+
+    public function getRoles(): array
     {
-        return $this->roles;
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
@@ -98,31 +100,6 @@ class User
         return $this;
     }
 
-    
-
-    public function getPwdChange(): ?int
-    {
-        return $this->pwd_change;
-    }
-
-    public function setPwdChange(int $pwd_change): self
-    {
-        $this->pwd_change = $pwd_change;
-
-        return $this;
-    }
-
-    public function getIsVerified(): ?bool
-    {
-        return $this->is_verified;
-    }
-
-    public function setIsVerified(bool $is_verified): self
-    {
-        $this->is_verified = $is_verified;
-
-        return $this;
-    }
 
     public function getSite(): ?Site
     {
@@ -208,7 +185,38 @@ class User
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getConfirmPassword()
+    {
+        return $this->confirm_password;
+    }
+
+    /**
+     * @param mixed $confirm_password
+     */
+    public function setConfirmPassword($confirm_password): void
+    {
+        $this->confirm_password = $confirm_password;
+    }
 
 
-   
+    /**
+     * @return string|null
+     */
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    /**
+     * @return mixed
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+
 }

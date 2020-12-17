@@ -17,10 +17,7 @@ class Site
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $campus;
+
 
     /**
      * @ORM\Column(type="string", length=5)
@@ -37,22 +34,17 @@ class Site
      */
     private $ville;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $campus;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCampus(): ?int
-    {
-        return $this->campus;
-    }
-
-    public function setCampus(int $campus): self
-    {
-        $this->campus = $campus;
-
-        return $this;
-    }
+    
 
     public function getCodePostal(): ?string
     {
@@ -86,6 +78,18 @@ class Site
     public function setVille(string $ville): self
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getCampus(): ?string
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(string $campus): self
+    {
+        $this->campus = $campus;
 
         return $this;
     }

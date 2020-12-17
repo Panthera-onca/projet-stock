@@ -20,8 +20,12 @@ class UserController extends AbstractController
     /**
      * @Route("/", name="user_index", methods={"GET"})
      */
-    public function index(UserRepository $userRepository): Response
-    {   $users = $userRepository->getUsers();
+    public function index(UserRepository $userRepository, Request $request): Response
+    {   $users = $userRepo = $this->getDoctrine()->getRepository(User::class);
+        $currentUser =$userRepo->find($this->getUser());
+
+        $currentUser->setUsername($request->request->get('username'));
+        $currentUser->setNom($request->request->get('nom'));
         return $this->render('user/index.html.twig', [
             'users' => $users,
         ]);
@@ -36,7 +40,8 @@ class UserController extends AbstractController
      */
     public function new(Request $request,
                         EntityManagerInterface $em,
-                        PasswordEncoderInterface $encoder): Response{
+                        PasswordEncoderInterface $encoder): Response
+    {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -44,9 +49,9 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $hashed = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hashed);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
 
             return $this->redirectToRoute('user_index');
         }
@@ -58,7 +63,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/admin/{id}", name="user_show", methods={"GET"})
+     * @Route("/{id}", name="user_show", methods={"GET"})
      */
     public function show(User $user): Response
     {

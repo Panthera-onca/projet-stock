@@ -19,10 +19,7 @@ class Stock
 
 
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $quantite_stock;
+
 
 
 
@@ -43,6 +40,11 @@ class Stock
      */
     private $livre;
 
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $quantite_stock;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -50,17 +52,7 @@ class Stock
 
 
 
-    public function getQuantiteStock(): ?int
-    {
-        return $this->quantite_stock;
-    }
-
-    public function setQuantiteStock(int $quantite_stock): self
-    {
-        $this->quantite_stock = $quantite_stock;
-
-        return $this;
-    }
+    
 
 
 
@@ -96,6 +88,18 @@ class Stock
     public function setLivre(?Livre $livre): self
     {
         $this->livre = $livre;
+
+        return $this;
+    }
+
+    public function getQuantiteStock(): ?int
+    {
+        return $this->quantite_stock;
+    }
+
+    public function setQuantiteStock(?int $quantite_stock): self
+    {
+        $this->quantite_stock = $quantite_stock;
 
         return $this;
     }
