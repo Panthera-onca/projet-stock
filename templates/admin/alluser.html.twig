@@ -1,0 +1,41 @@
+{% extends 'admin/dashboard.html.twig' %}
+{% block title %}DashBoard - Users{% endblock %}
+{% block dashboard %}
+    <div class="insideDash">
+        {% for message in app.flashes('success') %}
+            <div class="text-center" style="margin-top: 1%">
+                <div class="alert alert-success" role="alert" style="width: 35% ;margin: auto;">
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="card-deck">
+            {% for user in users %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Username : {{ user.username }}</h5>
+                        <p class="card-text">ID : {{ user.id }}</p>
+                        <p class="card-text">Mail : {{ user.email }}</p>
+                        <p class="card-text">Nom : {{ user.nom }}</p>
+                        <p class="card-text">Prenom : {{ user.prenom }}</p>
+                        <p class="card-footer">
+                            <small class="text-muted">Role : {{ user.roles|json_encode }}</small>
+                        </p>
+                    </div>
+                    <div class="inline text-center">
+                        <a id="editPr" class="updateLink"
+                           href="{{ path('app_admin_dashboard_user_edit',  {'username': user.username}) }}"><i
+                                    class="far fa-edit"></i></a>
+                        <a id="editPr" class="updateLink"
+                           href="{{ path('app_admin_delete_confirm', {'id': user.id}) }}"><i
+                                    class="fas fa-user-times"></i></a>
+                    </div>
+
+
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+{% endblock %}

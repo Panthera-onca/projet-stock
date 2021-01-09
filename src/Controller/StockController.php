@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Stock;
-use App\Form\StockSearchType;
 use App\Form\StockType;
 use App\Repository\StockRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,16 +18,10 @@ class StockController extends AbstractController
     /**
      * @Route("/", name="stock_index", methods={"GET"})
      */
-    public function index(StockRepository $stockRepository, Request $request): Response
-    {   $search = new Stock();
-        $form = $this->createForm(StockSearchType::class, $search);
-        $form->handleRequest($request);
-
-        $stocks = $stockRepository->getList();
-
+    public function index(StockRepository $stockRepository): Response
+    {
         return $this->render('stock/index.html.twig', [
-            'stocks' => $stocks,
-            'form' => $form->createView()
+            'stocks' => $stockRepository->findAll(),
         ]);
     }
 
@@ -38,7 +31,7 @@ class StockController extends AbstractController
     public function new(Request $request): Response
     {
         $stock = new Stock();
-        $form = $this->createForm(StockSearchType::class, $stock);
+        $form = $this->createForm(StockType::class, $stock);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

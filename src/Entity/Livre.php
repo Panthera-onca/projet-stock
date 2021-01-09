@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LivreRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,7 +19,15 @@ class Livre
      */
     private $id;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $titre_livre;
 
+    /**
+     * @ORM\Column(type="string", length=35)
+     */
+    private $auteur;
 
     /**
      * @ORM\Column(type="text")
@@ -25,15 +35,14 @@ class Livre
     private $resume;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=10)
      */
-    private $auteur;
+    private $ref_eni;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Categorie::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=15)
      */
-    private $categorie;
+    private $isbn;
 
     /**
      * @ORM\ManyToOne(targetEntity=Filiere::class)
@@ -42,37 +51,34 @@ class Livre
     private $filiere;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Categorie::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $nom_livre;
+    private $categorie;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="livre")
      */
-    private $ref_eni;
+    private $stocks;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $isbn;
-
-
+    public function __construct()
+    {
+        $this->stocks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-
-
-    public function getResume(): ?string
+    public function getTitreLivre(): ?string
     {
-        return $this->resume;
+        return $this->titre_livre;
     }
 
-    public function setResume(string $resume): self
+    public function setTitreLivre(string $titre_livre): self
     {
-        $this->resume = $resume;
+        $this->titre_livre = $titre_livre;
 
         return $this;
     }
@@ -89,38 +95,14 @@ class Livre
         return $this;
     }
 
-    public function getCategorie(): ?Categorie
+    public function getResume(): ?string
     {
-        return $this->categorie;
+        return $this->resume;
     }
 
-    public function setCategorie(?Categorie $categorie): self
+    public function setResume(string $resume): self
     {
-        $this->categorie = $categorie;
-
-        return $this;
-    }
-
-    public function getFiliere(): ?Filiere
-    {
-        return $this->filiere;
-    }
-
-    public function setFiliere(?Filiere $filiere): self
-    {
-        $this->filiere = $filiere;
-
-        return $this;
-    }
-
-    public function getNomLivre(): ?string
-    {
-        return $this->nom_livre;
-    }
-
-    public function setNomLivre(string $nom_livre): self
-    {
-        $this->nom_livre = $nom_livre;
+        $this->resume = $resume;
 
         return $this;
     }
@@ -149,6 +131,62 @@ class Livre
         return $this;
     }
 
+    public function getFiliere(): ?Filiere
+    {
+        return $this->filiere;
+    }
 
-    
+    public function setFiliere(?Filiere $filiere): self
+    {
+        $this->filiere = $filiere;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Stock[]
+     */
+    public function getStocks(): Collection
+    {
+        return $this->stocks;
+    }
+
+    public function addStock(Stock $stock): self
+    {
+        if (!$this->stocks->contains($stock)) {
+            $this->stocks[] = $stock;
+            $stock->setLivre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStock(Stock $stock): self
+    {
+        if ($this->stocks->removeElement($stock)) {
+            // set the owning side to null (unless already changed)
+            if ($stock->getLivre() === $this) {
+                $stock->setLivre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getId();
+    }
 }

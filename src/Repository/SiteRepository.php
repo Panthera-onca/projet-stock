@@ -55,7 +55,9 @@ class SiteRepository extends ServiceEntityRepository
         ->addSelect('v')
         ->addSelect('ad')
         ->addSelect('ca');
-    $query = $qb->getQuery();
-    return $query->getResult();
+        $query = $qb->getQuery();
+        return $query->getResult();
     }
+
+
 }

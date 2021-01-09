@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Stock;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -48,22 +49,52 @@ class StockRepository extends ServiceEntityRepository
         ;
     }
     */
+    /*
     public function getList()
     {$qb = $this->createQueryBuilder('s')
         ->join('s.livre', 'l')
         ->join('s.site', 'si')
         ->addSelect('l')
         ->addSelect('si');
-    $query = $qb->getQuery();
-    return $query->getResult();
+        $query = $qb->getQuery();
+        return $query->getResult();
     }
-    
+
     /**
      * @return Query
      */
-    public function findAllVisibleQuery(Stock $search): Query
+    /*
+        public function findAllVisibleQuery(Stock $search): Query
+        {
+            $query = $this->getList();
+            return $query->getResult();
+        }
+        */
+
+    /**
+      * @return Stock[] Returns an array of Stock objects
+      */
+    public function findOneById($id)
     {
-        $query = $this->getList();
-        return $query->getResult();
+        try {
+            return $this->createQueryBuilder('u')
+                ->andWhere('u.id = :id')
+                ->setParameter('id', $id)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+        }
+    }
+
+    public function findOneByName($livre)
+    {
+        try {
+            return $this->createQueryBuilder('u')
+                ->andWhere('u.livre = :name')
+                ->setParameter('livre', $livre)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+        }
     }
 }

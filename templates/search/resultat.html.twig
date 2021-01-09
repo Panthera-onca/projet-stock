@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% block title %}Resultat{% endblock %}
+{% block body %}
+    <div class="card-deck">
+        {% for livre in livres %}
+            {% if livre is empty %}
+                <div class="card">
+                    <p class="card-title">Il n'ya pas des livres !</p>
+                </div>
+            {% elseif livre.id != app.livre.id %}
+                {% if livre.id != app.livre.id %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">titre_livre : {{ livre.titre_livre }}</h5>
+                            <p class="card-text">auteur : {{ livre.auteur }}</p>
+                            <p class="card-text">filiere : {{ livre.filiere }}</p>
+                            <p class="card-text">categorie :{{ livre.categorie }}</p>
+                            <p class="card-footer">
+                                <small class="text-muted">Livres ajoutees</small>
+                            </p>
+                        </div>
+                    </div>
+                {% endif %}
+
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="card-deck">
+        {% for stock in stocks %}
+            {% if stock is empty %}
+                <div class="card">
+                    <p class="card-title">Il n'ya pas des livres en stock !</p>
+                </div>
+            {% elseif stock.id != app.stock.id %}
+                {% if stock.id != app.stock.id %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">quantite_stock : {{ stock.quantite_stock }}</h5>
+                            <p class="card-text">date_modification : {{ stock.date_modification }}</p>
+                            <p class="card-text">site : {{ stock.site }}</p>
+                            <p class="card-text">livre :{{ stock.livre }}</p>
+                            <p class="card-footer">
+                                <small class="text-muted">Livres en stock</small>
+                            </p>
+                        </div>
+                    </div>
+                {% endif %}
+
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="text-center">
+        <a class="btn btn-lg btn-dark" href="{{ path('app_searchLivre') }}">Retour</a>
+    </div>
+    <div class="text-center">
+        <a class="btn btn-lg btn-dark" href="{{ path('app_recherche') }}">Stock</a>
+    </div>
+{% endblock %}

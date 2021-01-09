@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Livre;
-use App\Entity\Stock;
 use App\Form\LivreType;
 use App\Repository\LivreRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,14 +19,14 @@ class LivreController extends AbstractController
      * @Route("/", name="livre_index", methods={"GET"})
      */
     public function index(LivreRepository $livreRepository): Response
-    {   $livres = $livreRepository->getLivres();
+    {
         return $this->render('livre/index.html.twig', [
-            'livres' => $livres,
+            'livres' => $livreRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("/admin/new", name="livre_new", methods={"GET","POST"})
+     * @Route("/new", name="livre_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -59,10 +58,8 @@ class LivreController extends AbstractController
         ]);
     }
 
-
-
     /**
-     * @Route("/admin/{id}/edit", name="livre_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="livre_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Livre $livre): Response
     {
@@ -82,7 +79,7 @@ class LivreController extends AbstractController
     }
 
     /**
-     * @Route("/admin/{id}", name="livre_delete", methods={"DELETE"})
+     * @Route("/{id}", name="livre_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Livre $livre): Response
     {

@@ -1,0 +1,42 @@
+{% extends 'admin/dashboard.html.twig' %}
+
+{% block title %}Edit User Profil{% endblock %}
+
+{% block dashboard %}
+
+    {{ form_start(editForm, {'method': 'POST', 'attr': {'class': 'formSignIn'} }) }}
+    <div class="form-group">
+        {{ form_row(editForm.username) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(editForm.email) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(editForm.nom) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(editForm.prenom) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(editForm.site) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(editForm.categorie) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(editForm.roles) }}
+    </div>
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('edit') }}"
+    >
+    <div class="text-center">
+        <button type="submit" class="btnBlock btn-lg btn-success" value="Edit">Modifier</button>
+    </div>
+    {{ form_end(editForm) }}
+
+    <a class="btn btn-lg btn-dark" href="{{ path('app_admin_dashboard_user') }}">Retour</a>
+
+
+
+
+{% endblock %}

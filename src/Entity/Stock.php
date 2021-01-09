@@ -17,51 +17,51 @@ class Stock
      */
     private $id;
 
-
-
-
-
-
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $quantite_stock;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
     private $date_modification;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Site::class)
+     * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="stocks")
      * @ORM\JoinColumn(nullable=false)
      */
     private $site;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Livre::class)
+     * @ORM\ManyToOne(targetEntity=Livre::class, inversedBy="stocks")
      * @ORM\JoinColumn(nullable=false)
      */
     private $livre;
-
-    /**
-     * @ORM\Column(type="smallint", nullable=true)
-     */
-    private $quantite_stock;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    public function getQuantiteStock(): ?int
+    {
+        return $this->quantite_stock;
+    }
 
+    public function setQuantiteStock(int $quantite_stock): self
+    {
+        $this->quantite_stock = $quantite_stock;
 
-    
+        return $this;
+    }
 
-
-
-    public function getDateModification(): ?\DateTimeImmutable
+    public function getDateModification(): ?\DateTimeInterface
     {
         return $this->date_modification;
     }
 
-    public function setDateModification(\DateTimeImmutable $date_modification): self
+    public function setDateModification(\DateTimeInterface $date_modification): self
     {
         $this->date_modification = $date_modification;
 
@@ -92,15 +92,8 @@ class Stock
         return $this;
     }
 
-    public function getQuantiteStock(): ?int
+    public function __toString()
     {
-        return $this->quantite_stock;
-    }
-
-    public function setQuantiteStock(?int $quantite_stock): self
-    {
-        $this->quantite_stock = $quantite_stock;
-
-        return $this;
+        return (string) $this->getId();
     }
 }

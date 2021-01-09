@@ -3,20 +3,21 @@
 {% block title %}Stock index{% endblock %}
 
 {% block body %}
-    <div class="jumbotron">
-        <div class="container">
-            {{ form_start(form) }}
-            {{ form_end(form) }}
-        </div>
-    </div>
-    <div class="container mt-4"div>
-        <h1>Stock index</h1>
+    <h1>Stock index</h1>
 
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Quantite_stock</th>
+                <th>Date_modification</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
         {% for stock in stocks %}
             <tr>
                 <td>{{ stock.id }}</td>
-                <td>{{ stock.siteId }}</td>
-                <td>{{ stock.livreId }}</td>
                 <td>{{ stock.quantiteStock }}</td>
                 <td>{{ stock.dateModification ? stock.dateModification|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
@@ -26,11 +27,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
-
+        </tbody>
+    </table>
 
     <a href="{{ path('stock_new') }}">Create new</a>
-    </div>
 {% endblock %}

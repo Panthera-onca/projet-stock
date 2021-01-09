@@ -18,7 +18,7 @@ class Filiere
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=70)
      */
     private $nom_filiere;
 
@@ -37,5 +37,10 @@ class Filiere
         $this->nom_filiere = $nom_filiere;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getId();
     }
 }

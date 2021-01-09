@@ -21,26 +21,20 @@ class User implements UserInterface
      */
     private $id;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="string", length=255)
      */
-    private $roles = [];
-
-
-
+    private $prenom;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Site::class)
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $site;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Filiere::class)
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $filiere;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -48,9 +42,9 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="json")
      */
-    private $username;
+    private $roles = [];
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -64,101 +58,21 @@ class User implements UserInterface
     private $confirm_password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $nom;
+    private $site;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="users")
      */
-    private $prenom;
-
-
+    private $categorie;
 
 
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-
-
-
-
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-
-    public function getSite(): ?Site
-    {
-        return $this->site;
-    }
-
-    public function setSite(?Site $site): self
-    {
-        $this->site = $site;
-
-        return $this;
-    }
-
-    public function getFiliere(): ?Filiere
-    {
-        return $this->filiere;
-    }
-
-    public function setFiliere(?Filiere $filiere): self
-    {
-        $this->filiere = $filiere;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
     }
 
     public function getNom(): ?string
@@ -185,20 +99,64 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getConfirmPassword()
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getRoles(): ?array
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getConfirmPassword(): ?self
     {
         return $this->confirm_password;
     }
 
-    /**
-     * @param mixed $confirm_password
-     */
-    public function setConfirmPassword($confirm_password): void
+    public function setConfirmPassword(self $confirm_password): self
     {
         $this->confirm_password = $confirm_password;
+
+        return $this;
     }
 
 
@@ -218,5 +176,27 @@ class User implements UserInterface
         // TODO: Implement eraseCredentials() method.
     }
 
+    public function getSite(): ?Site
+    {
+        return $this->site;
+    }
 
+    public function setSite(?Site $site): self
+    {
+        $this->site = $site;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
 }
